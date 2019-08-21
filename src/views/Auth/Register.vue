@@ -12,7 +12,7 @@
                 <input type="password" v-model="user.password" required="" name="password" class="form-control" />
                 
             </div>
-
+            
             <div class="form-group">
                 <button class="btn btn-primary" >Register</button> 
                 

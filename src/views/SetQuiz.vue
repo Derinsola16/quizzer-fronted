@@ -1,37 +1,34 @@
 <template>
 <main>
+        <!-- Modal for setting questions -->
+     <div class="container-fluid">
+  <b-button v-b-modal.modal-1 class="btn btn-primary">Set Question</b-button>
 
-    <form>
-        <div class="form-group">
-        <label for="course"> Enter Course &nbsp;</label>
-        <input type="text" required="" name="course"/>
-        </div>
+  <b-modal id="modal-1" title="">
+          
+  </b-modal>
+</div>
+  <!-- Modal for setting questions ends-->
 
-        <div class="form-group">
-        <label for="course"> Enter Question &nbsp;</label>
-        <input type="text" required="" name="question" placeholder="Description"/>
-        </div>
+    <div class="container">
+        <b-table striped hover :items="items" :fields="quizfields"></b-table>
+    </div>
 
-        <div class="form-group">
-        <label for="course"> Enter Option 1 &nbsp;</label>
-        <input type="text" required="" name="course"/>
-        </div>
+    <div class="container" id="app">
+    <b-table striped hover :items="item" :fields="questionfield" v-if="seen"></b-table>
+  </div>
 
+        <form>
         <div class="form-group">
-        <label for="course"> Enter Option 2 &nbsp;</label>
-        <input type="text" required="" name="course"/>
+            <button class="btn btn-success">Add</button>&nbsp;&nbsp;
+            
         </div>
+         </form>
+        <button class="btn btn-info" v-on:click="seen = !seen">View all question</button>
+       
+    
 
-        <div class="form-group">
-        <label for="course"> Enter Option 3 &nbsp;</label>
-        <input type="text" required="" name="course"/>
-        </div>
-
-        <div class="form-group">
-        <label for="course"> Enter Option 4 &nbsp;</label>
-        <input type="text" required="" name="course"/>
-        </div>
-    </form>
+   
 </main>
     
 </template>
@@ -39,7 +36,18 @@
 <script>
 export default {
     
+    data() {
+        return {
+            quiz:{},
+            quizfields: ['S/N', 'email', 'subject','score'],
+            questionfield: ['S/N', 'subject', 'question','options','answer'],
+            seen: false
+        }
+    },
+
 }
+
+ 
 </script>
 
 <style scoped>

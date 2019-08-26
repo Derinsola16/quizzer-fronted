@@ -72,9 +72,5 @@ export default {
 </script>
 
 <style scoped>
-/* .form-control{
-     width: 650px; 
-    margin-left: 250px;
- 
-} */
+
 </style>

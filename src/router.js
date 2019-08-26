@@ -39,35 +39,20 @@ export default new Router({
 
     },
     {
-      path: '/candidate/',
-      component: () => import('@/views/Candidate/Quiz.vue'),
+      path: '/exam/',
+      component: () => import('@/views/Exam/Main.vue'),
 
       children: [
-        // Set question will be rendered inside Candidate's <router-view>
-        { path: '', name: 'Subjects', component: () => import('@/views/Candidate/Subjects.vue') },
+        // Each will be rendered inside Exam's <router-view>
+        { path: '', name: 'Start', component: () => import('@/views/Exam/Start.vue')},
 
-        // View question will be rendered inside Candidate's <router-view>
-        //{ path: 'viewquestion', name: 'ViewQuestion', component: () => import('@/views/Candidate/ViewQuestion.vue') },
+        // Each will be rendered inside Exam's <router-view>
+        { path: '/exam/:id', name: 'Exam', component: () => import('@/views/Exam/Exam.vue') },
 
-        // View quiz will be rendered inside Candidate's <router-view>
-        //{ path: 'viewquiz', name: 'ViewQuiz', component: () => import('@/views/Candidate/ViewQuiz.vue') },
-      ]
+        // Each will be rendered inside Exam's <router-view>
+        { path: '/exam/:id/success', name: 'Success', component: () => import('@/views/Exam/Success.vue') },
 
-    },
-    {
-      path: '/subject/',
-      component: () => import('@/views/Candidate/Subjects.vue'),
-
-      children: [
-        // Each question will be rendered inside Candidate's <router-view>
-        { path: 'Node', name: 'Node', component: () => import('@/views/Subject/Node.vue') },
-
-        // Each question will be rendered inside Subject's <router-view>
-        { path: 'javascript', name: 'Javascript', component: () => import('@/views/Subject/Javascript.vue') },
-
-        // Each question will be rendered inside Subject's <router-view>
-        { path: 'vues', name: 'Vues', component: () => import('@/views/Subject/Vues.vue') },
-      ]
+     ]
 
     }
   ]

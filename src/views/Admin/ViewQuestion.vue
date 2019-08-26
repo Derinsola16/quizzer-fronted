@@ -1,6 +1,6 @@
 <template>
-<div class="container" id="app">
-    <b-table striped hover :items="item" :fields="questionfields"></b-table>
+<div class="container" id="admin">
+    <b-table class="table" striped hover :items="item" :fields="questionfields"></b-table>
   </div>
     
 </template>
@@ -35,3 +35,9 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.table{
+    align-self: auto;
+}
+</style>

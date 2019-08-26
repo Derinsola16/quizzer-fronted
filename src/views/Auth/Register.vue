@@ -14,8 +14,9 @@
 <!-- i am trying to use this => v-if="user.password == user.confpassword" -->
             <div class="form-group">
                 <label htmlFor="confpassword">Confirm Password</label>
-                <input  :class="{ error: !user.password && submit}" type="password" v-model="user.confpassword" required="" name="confpassword" class="form-control" />   
+                <input  :class="{ error: passwordDoesNotMatch}" type="password" v-model="user.confpassword" required="" name="confpassword" class="form-control" />   
             </div>
+            <p v-if="passwordDoesNotMatch" class="error">The two password does not match</p>
             
             <div class="form-group">
                 <button class="btn btn-primary" type="submit" >Register</button>                 
@@ -32,16 +33,18 @@ export default {
     data: function (){
         return{
             user:{},
-          
+            passwordDoesNotMatch: false
         }
 
     
     },
-   
-
     methods: {
         
         submit (){
+            this.passwordDoesNotMatch = this.user.password !== this.user.confpassword
+            if(!this.passwordDoesNotMatch){
+                // code to send request to server should be here
+            }
         }
     }
     }

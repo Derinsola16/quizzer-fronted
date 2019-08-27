@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Register from './views/Auth/Register.vue'
+
 
 Vue.use(Router)
 
@@ -11,7 +11,7 @@ export default new Router({
     {
       path: '/',
       name: 'register',
-      component: Register
+      component: () => import('./views/Auth/Register.vue')
     },
     {
       path: '/login',
@@ -19,7 +19,7 @@ export default new Router({
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/Auth/Login.vue')
+      component: () => import('./views/Auth/Login.vue')
     },
     {
       path: '/admin/',

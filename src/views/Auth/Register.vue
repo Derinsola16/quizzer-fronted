@@ -1,5 +1,5 @@
 <template>
-    <div id="apps">
+    <div id="app">
         <h2>Register</h2>
         <form @submit.prevent="submit()">
             <div class="form-group">
@@ -11,7 +11,7 @@
                 <label htmlFor="password">Password</label>
                 <input type="password"  v-model="user.password" required="" name="password" class="form-control" />   
             </div>
-<!-- i am trying to use this => v-if="user.password == user.confpassword" -->
+
             <div class="form-group">
                 <label htmlFor="confpassword">Confirm Password</label>
                 <input  :class="{ error: passwordDoesNotMatch}" type="password" v-model="user.confpassword" required="" name="confpassword" class="form-control" />   

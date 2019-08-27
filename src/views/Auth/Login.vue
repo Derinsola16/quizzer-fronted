@@ -1,5 +1,5 @@
 <template>
-    <div id="apps"> 
+    <div id="app"> 
         <h2>Login</h2>
         <form>
             <div class="form-group">

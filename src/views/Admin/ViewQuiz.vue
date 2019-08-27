@@ -1,6 +1,6 @@
 <template>
     <div class="container" id="admin">
-        <b-table class="table" striped hover :items="items" :fields="fields"></b-table>
+        <b-table striped hover :items="items" :fields="fields"></b-table>
     </div>
 </template>
 
@@ -20,9 +20,8 @@ export default {
 </script>
 
 <style>
-.table{
-   
-    align-self: auto;
-   
+#admin{
+    width: 500px;
+  margin: auto;
 }
 </style>

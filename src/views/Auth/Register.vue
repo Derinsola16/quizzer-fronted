@@ -25,7 +25,7 @@
             <p v-if="passwordDoesNotMatch" class="error">The two password does not match</p>
             
             <div class="form-group">
-                <!-- @click="showSuccessAlert=true" -->
+                
                 <button  class="btn btn-primary" type="submit" >Register</button>                 
                 <p> Already have an Account?<router-link to="/login" class="btn btn-link">Login</router-link></p>
             </div>

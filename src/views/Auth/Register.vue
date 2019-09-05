@@ -51,12 +51,14 @@ export default {
     methods: {
         
      async submit (){
+         this.showSuccessAlert = this.showErrorAlert = false
             this.passwordDoesNotMatch = this.user.password !== this.user.confpassword
             if(!this.passwordDoesNotMatch){
-                
+                // code to send request to server should be here
               try {
                   await axios({method: 'post', url: 'https://quizzer-api.herokuapp.com/candidates', data: this.user});
                     this.showSuccessAlert = true
+                    this.user= {}
                              
               } 
               catch (error) {
@@ -65,7 +67,7 @@ export default {
             }
             
 
-            this.user=''
+            
            
         }
     }

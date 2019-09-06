@@ -1,48 +1,21 @@
 <template>
 <div class="container">
+  <!-- 
+    get courseId
+    post quiz and record score
+    get all question
+
+
+ -->
 
     <h4>Welcome to your {{$route.params.id}} quiz</h4>
 
-    <ol>
-     <li> <label for="one"> How many framework does js has?</label> </li>
-        <!-- <label for="1">1. What is the full meaning of npm?</label> -->
-      <b-form-radio v-model="selected" name="fifth"  value="Many">Many</b-form-radio>
-      <b-form-radio v-model="selected" name="fifth"  value="None"> None</b-form-radio>
+    <ol  >
+     <li> <label for="one" >{{questionId}}</label> </li>
+      <b-form-radio v-for="(i, n) in 4" :key="n" v-model="selected" value="Many">{{options.text}}</b-form-radio>
+      <!-- <b-form-radio v-model="selected" name="fifth"  value="None"> None</b-form-radio>
       <b-form-radio v-model="selected" name="fifth"  value="Two">Two</b-form-radio>
-      <b-form-radio v-model="selected" name="fifth"  value="One"> One</b-form-radio>
-   
-    
-     <li> <label for="one"> How many framework does js has?</label> </li>
-        <!-- <label for="1">1. What is the full meaning of npm?</label> -->
-      <b-form-radio v-model="selected" name="fourth"  value="Many">Many</b-form-radio>
-      <b-form-radio v-model="selected" name="fourth"  value="None"> None</b-form-radio>
-      <b-form-radio v-model="selected" name="fourth"  value="Two">Two</b-form-radio>
-      <b-form-radio v-model="selected" name="fourth"  value="One"> One</b-form-radio>
-   
-    
-     <li> <label for="one"> How many framework does js has?</label> </li>
-        <!-- <label for="1">1. What is the full meaning of npm?</label> -->
-      <b-form-radio v-model="selected" name="third"  value="Many">Many</b-form-radio>
-      <b-form-radio v-model="selected" name="third"  value="None"> None</b-form-radio>
-      <b-form-radio v-model="selected" name="third"  value="Two">Two</b-form-radio>
-      <b-form-radio v-model="selected" name="third"  value="One"> One</b-form-radio>
-   
-    
-     <li> <label for="one"> How many framework does js has?</label> </li>
-        <!-- <label for="1">1. What is the full meaning of npm?</label> -->
-      <b-form-radio v-model="selected" name="second"  value="Many">Many</b-form-radio>
-      <b-form-radio v-model="selected" name="second"  value="None"> None</b-form-radio>
-      <b-form-radio v-model="selected" name="second"  value="Two">Two</b-form-radio>
-      <b-form-radio v-model="selected" name="second"  value="One"> One</b-form-radio>
-   
-   
-    <li> <label for="one"> How many framework does js has?</label> </li>
-        <!-- <label for="1">1. What is the full meaning of npm?</label> -->
-      <b-form-radio v-model="selected" name="first"  value="Many">Many</b-form-radio>
-      <b-form-radio v-model="selected" name="first"  value="None"> None</b-form-radio>
-      <b-form-radio v-model="selected" name="first"  value="Two">Two</b-form-radio>
-      <b-form-radio v-model="selected" name="first"  value="One"> One</b-form-radio>
-   
+      <b-form-radio v-model="selected" name="fifth"  value="One"> One</b-form-radio> -->
     </ol>
 
     <router-link :to="`/exam/${$route.params.id}/success`">
@@ -57,9 +30,32 @@
 export default {
     data(){
         return{
-          
+            selected:[],
+            questionId: '',
+            options:[]
         }
-    }
+    },
+
+    // methods: {
+    //     async submit(){
+    //        try {
+    //          await axios({method: 'post', url: 'https://quizzer-api.herokuapp.com/quizzes', data: this.question});
+    //     } catch (error) {
+    //         this.error = 'Something went Wrong'
+    //     }
+    //     }
+    // },
+
+      async mounted(){
+        // Get all question
+        try {
+        const resp = await axios.get('https://quizzer-api.herokuapp.com/questions')
+        this.question = resp.data
+        } catch (error) {
+        this.error = ''
+      }
+      }
+
 }
 </script>
 

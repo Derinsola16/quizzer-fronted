@@ -31,7 +31,6 @@ export default {
                 { S_N: '3', subject: 'Vue', question: 'What framework is vue under', options: '90%', answer: 'Javascript'},
             ]
         }
-
     }
 }
 </script>

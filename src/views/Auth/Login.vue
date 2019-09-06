@@ -59,13 +59,8 @@ export default {
              break;        
      }
      this.$router.push(path)
-},
-
-loginFailed () {
-  this.error = 'Email and Password does not match!'
-  delete localStorage.token
+    }
 }
-  }
 
 }
 </script>

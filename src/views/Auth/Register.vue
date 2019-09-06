@@ -3,7 +3,7 @@
         <h2>Register</h2>
         <form @submit.prevent="submit()">
             <b-alert  v-model="showSuccessAlert" variant="success">
-      Account Successfully Created!! Click here to <router-link to="/login" class="btn btn-link">Login</router-link>
+      Account Successfully Created!! Click here to <router-link to="/login">Login</router-link>
     </b-alert>
     <b-alert   v-model="showErrorAlert" variant="danger">
       Something Went Wrong!!!!!

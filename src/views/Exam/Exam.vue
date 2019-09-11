@@ -1,64 +1,84 @@
-<template>
-<div class="container">
-  <!-- 
-    get courseId
-    post quiz and record score
-    get all question
+    <template>
+    <div class="container">
+        <ol>  
+        <Question 
+          v-for="(question) in questions" 
+          :key="question.description" 
+          :options="question.options" 
+          :question="question" 
+          @answer="handleQuestionAnswered($event,question.id) "
+          :submit="attemptSubmit"
+        />  
+        </ol>
+      <b-button round class="btn btn-success" @click="submit"> Submit </b-button> 
+    </div>    
+    </template>
 
+    <script>
+    import Question from './Question'
+    import axios from 'axios'
+    export default {
+      components: {Question},
+        data(){
+            return{
+                questions:[],
+                options:[],
+                answeredQuestions: [],
+                result: [],
+                attemptSubmit: false    
+            }
+        },
+            computed: {
+            answeredQuestionsArray(){
+              let x = []
+              Object.keys(this.answeredQuestions).forEach(question => {
+                if (this.answeredQuestions[question]) {
+                  x.push([question,this.answeredQuestions[question]])
+                }
+              })
+              return x
+            },
+            validate(){
+            return this.answeredQuestionsArray.length === this.questions.length
+            },
+          },
+        methods: {
+          
+         
+          handleQuestionAnswered($event,question){
+            this.answeredQuestions[question] = $event
+            
+          },
+        async submit(){
+              this.attemptSubmit = true   
+          let path = `/exam/${this.$route.params.id}/success`
 
- -->
+          if(this.validate){
+          localStorage.setItem('answers',JSON.stringify(this.answeredQuestionsArray)) 
+            this.$router.push(path)
+              
+          }
+            },
+        },
 
-    <h4>Welcome to your {{$route.params.id}} quiz</h4>
+          async mounted(){
+            // Get all question
+            try {
+              //console.log(this.$route.params.id)
+            const resp = await axios.get(`https://quizzer-api.herokuapp.com/questions?courseId=${this.$route.params.id}`)
+            this.questions = resp.data
+            this.answeredQuestions = this.questions.reduce((answeredQuestions, question) => ({ ...answeredQuestions, [question.id]: null }), {})
+            // console.log(this.answeredQuestions)
+            } catch (error) {
+            this.error = 'Something Went Wrong!!!'
+          }
+          }
 
-    <ol  >
-     <li> <label for="one" >{{questionId}}</label> </li>
-      <b-form-radio v-for="(i, n) in 4" :key="n" v-model="selected" value="Many">{{options.text}}</b-form-radio>
-      <!-- <b-form-radio v-model="selected" name="fifth"  value="None"> None</b-form-radio>
-      <b-form-radio v-model="selected" name="fifth"  value="Two">Two</b-form-radio>
-      <b-form-radio v-model="selected" name="fifth"  value="One"> One</b-form-radio> -->
-    </ol>
+    }
+    </script>
 
-    <router-link :to="`/exam/${$route.params.id}/success`">
-    <b-button round class="btn btn-success">Submit</b-button>
-    </router-link>
- 
- 
-</div>    
-</template>
-
-<script>
-export default {
-    data(){
-        return{
-            selected:[],
-            questionId: '',
-            options:[]
-        }
-    },
-
-    // methods: {
-    //     async submit(){
-    //        try {
-    //          await axios({method: 'post', url: 'https://quizzer-api.herokuapp.com/quizzes', data: this.question});
-    //     } catch (error) {
-    //         this.error = 'Something went Wrong'
-    //     }
-    //     }
-    // },
-
-      async mounted(){
-        // Get all question
-        try {
-        const resp = await axios.get('https://quizzer-api.herokuapp.com/questions')
-        this.question = resp.data
-        } catch (error) {
-        this.error = ''
-      }
-      }
-
-}
-</script>
-
-<style scoped>
-
-</style>
+    <style scoped>
+    .empty{
+      color: rgb(255, 0, 0);
+    }
+    </style>

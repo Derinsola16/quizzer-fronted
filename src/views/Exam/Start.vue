@@ -1,45 +1,10 @@
 <template>
 <div class="container">
      <h3><b>Please select subject to take quiz on </b></h3><br/>
-    <router-link to="/exam/vue">
-    <b-button block variant="outline-primary">{{course.id}}</b-button>
+    <router-link :to="`/exam/${course.id}`" v-for="(course) in courses" :key="course.id">
+    <b-button block variant="outline-primary">Take a {{course.name}} quiz</b-button>
     </router-link>
-<br/>
-    <router-link to="/exam/node">
-    <b-button block variant="outline-warning">{{course.id}}</b-button>
-    </router-link>
-<br/>
-    <router-link to="/exam/javascript">
-    <b-button block variant="outline-secondary">Take a Javascript quiz</b-button>
-    </router-link>
-<br/>
-    <router-link to="/exam/bootstrap">
-    <b-button block variant="outline-success">Take a Bootstrap quiz</b-button>
-    </router-link>
-<br/>
-    <router-link to="/exam/bootstrap">
-    <b-button block variant="outline-success">Take a Bootstrap quiz</b-button>
-    </router-link>
-<br/>
-    <router-link to="/exam/bootstrap">
-    <b-button block variant="outline-success">Take a Bootstrap quiz</b-button>
-    </router-link>
-<br/>
-    <router-link to="/exam/bootstrap">
-    <b-button block variant="outline-success">Take a Bootstrap quiz</b-button>
-    </router-link>
-<br/>
-    <router-link to="/exam/bootstrap">
-    <b-button block variant="outline-success">Take a Bootstrap quiz</b-button>
-    </router-link>
-<br/>
-    <router-link to="/exam/bootstrap">
-    <b-button block variant="outline-success">Take a Bootstrap quiz</b-button>
-    </router-link>
-<br/>
-    <router-link to="/exam/bootstrap">
-    <b-button block variant="outline-success">Take a Bootstrap quiz</b-button>
-    </router-link>                            
+                            
     
 <hr>
 
@@ -49,10 +14,11 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
     data(){
         return{
-          course: id
+          courses: []
         }
     },
     async mounted(){

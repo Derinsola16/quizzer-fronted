@@ -64,11 +64,11 @@
           async mounted(){
             // Get all question
             try {
-              //console.log(this.$route.params.id)
+            
             const resp = await axios.get(`https://quizzer-api.herokuapp.com/questions?courseId=${this.$route.params.id}`)
             this.questions = resp.data
             this.answeredQuestions = this.questions.reduce((answeredQuestions, question) => ({ ...answeredQuestions, [question.id]: null }), {})
-            // console.log(this.answeredQuestions)
+            
             } catch (error) {
             this.error = 'Something Went Wrong!!!'
           }

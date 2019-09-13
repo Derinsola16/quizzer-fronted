@@ -1,7 +1,7 @@
 <template>
 <div class="container" id="admin">
-  <div class="alert alert-danger" v-if="error">{{ error }}</div>
-    <b-table  striped hover :items="value"></b-table>
+  <div class="alert alert-danger" v-if="error">{{ error }}</div>  
+       <b-table  striped hover :items="value" ></b-table>
   </div>
     
 </template>
@@ -10,7 +10,6 @@ import axios from 'axios'
 export default {
     data() {
         return{
-          questionfields:{},
              value:[],
              error:''
         }
@@ -19,23 +18,26 @@ export default {
    async mounted() {
      const token = JSON.parse(localStorage.getItem('currentUser')).access_token
         try {
-          const response = await axios.get('https://quizzer-api.herokuapp.com/questions', { 
+          const questionResponse = await axios.get('https://quizzer-api.herokuapp.com/questions', { 
             headers: {
               Authorization: `Bearer ${token}`
             }
           })
-         const ans = JSON.parse(localStorage.getItem('answers'))[0]
-         console.log(ans)
-        this.value = response.data.map((question) => {
-          let data = {};
-          data.Subject = question.courseId;
-          data.Question = question.description;
-          data.Options = question.options.map(opt => opt.text);
-          //data.Answer = question.courseId;
-          return data;
-        })
 
-        } catch (error) {
+          const courseResponse = await axios.get('https://quizzer-api.herokuapp.com/courses') 
+
+        this.value = questionResponse.data.map((question) => {
+          let questionData = {};
+          let subject = courseResponse.data.filter(course => {
+            if (course.id == question.courseId) {
+              return course.name
+            }          
+          })
+          questionData.Subject = subject[0].name; 
+          questionData.Question = question.description;
+          questionData.Options = question.options.map(opt => opt.text)
+          return questionData;
+        })} catch (error) {
           this.error = 'Something Went Wrong :('
         }
     },  
@@ -45,7 +47,5 @@ export default {
 <style scoped>
 #admin{
 width: 500px;
-  margin: auto;
 }
-
 </style>

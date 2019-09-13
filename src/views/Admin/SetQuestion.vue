@@ -40,7 +40,7 @@
         </div>
 
         <div class="form-group">
-            <label for="course"> Please select the right answer &nbsp;</label>
+        <label for="course"> Please select the right answer &nbsp;</label>
         <select v-model="question.answer" required="" class="form-control">
             <option :value="i" v-for="(n, i) in 4" :key="n">{{question.options[i]}}</option>
         </select>
@@ -50,18 +50,10 @@
             <input class="btn btn-success btn-lg" value="Add" type="submit"/>
         </div>
         </form>
-
-</div>
-    
+</div>  
 </template>
 
 <script>
-
-
-//Enter all option
-//Select an answer
-//Submit
-
 import axios from 'axios'
 export default {
      data() {
@@ -89,12 +81,10 @@ export default {
         // Get all courses
         try {
         const resp = await axios.get('https://quizzer-api.herokuapp.com/courses')
-        
         this.courses = resp.data
         } catch (error) {
             this.error = 'Please select a course'
-        }
-      
+        }    
     }
     
 }

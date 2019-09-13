@@ -1,27 +1,47 @@
 <template>
-    <div class="container" id="admin">
-        <b-table striped hover :items="items" :fields="fields"></b-table>
-    </div>
+  <div class="container" id="admin">
+      <div class="alert alert-danger" v-if="error">{{ error }}</div>
+    <b-table striped hover :items="value"></b-table>
+  </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
-    data(){
-        return{
-            fields: ['S_N', 'email', 'subject','score'],
-            items:[
-                { S_N: '1', email: 'JhonDoe@gmail.com',subject: 'Node', score: '90%'},
-                { S_N: '2', email: 'HalimaBerry@gmail.com',subject: 'Javascript', score: '70%'},
-                { S_N: '3', email: 'SnowWater@gmail.com',subject: 'Vue', score: '85%'},
-            ]
-        }
+  data() {
+    return {
+      value: [],
+      error: ""
+    };
+  },
+
+  async mounted() {
+    try {
+      const response = await axios.get("https://quizzer-api.herokuapp.com/quizzes")
+
+      const courseResponse = await axios.get("https://quizzer-api.herokuapp.com/courses");
+
+      this.value = response.data.map(quiz => {
+        let data = {};
+        let subject = courseResponse.data.filter(course => {
+          if (course.id == quiz.courseId) {
+            return course.name;
+          }
+        });
+        data.Email = quiz.email;
+        data.Subject = subject[0].name;
+        data.Score = quiz.score;
+        return data;
+      });
+    } catch (error) {
+      this.error = "Something Went Wrong :(";
     }
-}
+  }
+};
 </script>
 
 <style>
-#admin{
-    width: 500px;
-  margin: auto;
+#admin {
+  width: 500px;
 }
 </style>

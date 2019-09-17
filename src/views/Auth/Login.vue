@@ -38,7 +38,7 @@ export default {
        this.error = ''
         try {
             const resp = await axios({method: 'post', url: 'https://quizzer-api.herokuapp.com/login', data: this.user});
-            console.log(resp.data)
+           
             this.handleSuccessfullLogin(resp.data)
         } catch (error) {
             if(error.response && error.response.status === 401){
@@ -48,7 +48,8 @@ export default {
         }    
    },
    handleSuccessfullLogin (data) {
-     localStorage.currentUser = data
+       
+      localStorage.setItem('currentUser',JSON.stringify(data))
      let path = '/'
      switch(data.user.role){
          case 'EXAMINER':
